@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name         Smooth Work Logging
+// @description  Makes creating/editing Jira work logs more efficient.
 // @namespace    https://github.com/bannmann/
-// @version      0.2
+// @version      0.3
 // @match        https://jira.eurodata.de/browse/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=eurodata.de
 // @grant        none
