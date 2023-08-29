@@ -1,10 +1,12 @@
 // ==UserScript==
 // @name         Smooth Work Logging
 // @namespace    https://github.com/bannmann/
-// @version      0.1
+// @version      0.2
 // @match        https://jira.eurodata.de/browse/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=eurodata.de
 // @grant        none
+// @updateURL    https://github.com/bannmann/user-scripts/raw/main/jira/smooth-work-logging.user.js
+// @downloadURL  https://github.com/bannmann/user-scripts/raw/main/jira/smooth-work-logging.user.js
 // ==/UserScript==
 
 (function() {
