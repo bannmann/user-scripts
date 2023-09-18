@@ -2,7 +2,7 @@
 // @name         Smooth Work Logging
 // @description  Makes creating/editing Jira work logs more efficient.
 // @namespace    https://github.com/bannmann/
-// @version      0.3
+// @version      0.4
 // @match        https://jira.eurodata.de/browse/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=eurodata.de
 // @grant        none
@@ -94,7 +94,7 @@
         makeButton("m", "45m");
 
         row.addEventListener("click", function(event) {
-            let clicked = event.originalTarget;
+            let clicked = event.target;
             if (clicked.nodeName === 'BUTTON') {
                 clicked.parentNode.querySelectorAll("button.aui-button-primary[data-kind=" + clicked.dataset.kind + "]").forEach(function (button) {
                     button.classList.remove("aui-button-primary");
