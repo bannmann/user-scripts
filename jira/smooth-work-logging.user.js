@@ -2,8 +2,10 @@
 // @name         Smooth Work Logging
 // @description  Makes creating/editing Jira work logs more efficient.
 // @namespace    https://github.com/bannmann/
-// @version      0.5
+// @version      0.6
 // @match        https://jira.eurodata.de/browse/*
+// @match        https://jira.eurodata.de/secure/RapidBoard.jspa?*
+// @match        https://jira.eurodata.de/issues/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=eurodata.de
 // @grant        none
 // @updateURL    https://github.com/bannmann/user-scripts/raw/main/jira/smooth-work-logging.user.js
@@ -60,9 +62,11 @@
     }
 
     function addDurationButtons(dialog) {
+        let gridColumnCount = dialog.classList.contains("popup-width-large") ? 9 : 5;
+
         let row = document.createElement("div");
         row.classList.add("description");
-        row.setAttribute("style", "display:grid; grid-template-columns: repeat(9, 1fr); grid-gap: 10px 10px");
+        row.setAttribute("style", `display:grid; grid-template-columns: repeat(${gridColumnCount}, 1fr); grid-gap: 10px 10px`);
 
         let input = dialog.querySelector("#log-work-time-logged");
         let values = getDurationValues(input);
@@ -104,7 +108,13 @@
     function makeButton(currentValues, row, kind, value, label) {
         let button = document.createElement("button");
         button.setAttribute("type", "button");
-        button.setAttribute("style", "margin: 0; padding: 4px 7px;");
+
+        let style = "margin: 0; padding: 4px 7px;";
+        if (value == "00" || value == "") {
+            style += "grid-column-start: 1;";
+        }
+        button.setAttribute("style", style);
+
         button.dataset.kind = kind;
         button.dataset.value = value;
         button.innerText = label || value;
@@ -132,9 +142,11 @@
     }
 
     function addStartTimeButtons(dialog) {
+        let gridColumnCount = dialog.classList.contains("popup-width-large") ? 13 : 7;
+
         let row = document.createElement("div");
         row.classList.add("description");
-        row.setAttribute("style", "display:grid; grid-template-columns: repeat(13, 1fr); grid-gap: 10px 10px");
+        row.setAttribute("style", `display:grid; grid-template-columns: repeat(${gridColumnCount}, 1fr); grid-gap: 10px 10px`);
 
         let input = dialog.querySelector("#log-work-date-logged-date-picker");
         let values = getTimeValues(input);
