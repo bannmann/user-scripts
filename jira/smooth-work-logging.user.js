@@ -2,7 +2,7 @@
 // @name         Smooth Work Logging
 // @description  Makes creating/editing Jira work logs more efficient.
 // @namespace    https://github.com/bannmann/
-// @version      0.6
+// @version      0.7
 // @match        https://jira.eurodata.de/browse/*
 // @match        https://jira.eurodata.de/secure/RapidBoard.jspa?*
 // @match        https://jira.eurodata.de/issues/*
@@ -14,21 +14,20 @@
 
 (function() {
     'use strict';
-    const patchingDelay = 250;
 
-    var observer = new MutationObserver(function(mutations) {
+    var bodyObserver = new MutationObserver(function(mutations) {
         for (const mutation of mutations) {
             for (const node of mutation.addedNodes) {
                 if ('id' in node) {
-                    switch(node.id) {
+                    switch (node.id) {
                         case "log-work-dialog":
-                            runDelayed(patchLogWorkDialog, node);
+                            runPatcher(patchLogWorkDialog, node);
                             return;
                         case "edit-log-work-dialog":
-                            runDelayed(patchWorklogEditDialog, node);
+                            runPatcher(patchWorklogEditDialog, node);
                             return;
                         case "delete-log-work-dialog":
-                            runDelayed(patchWorklogDeleteDialog, node);
+                            runPatcher(patchWorklogDeleteDialog, node);
                             return;
                     }
                 }
@@ -36,12 +35,35 @@
         }
     });
 
-    observer.observe(document.body, {
-        childList: true
+    bodyObserver.observe(document.body, {
+        childList: true,
+        subtree: true
     });
 
-    function runDelayed(handler, dialog) {
-        setTimeout(handler, patchingDelay, dialog);
+    function runPatcher(patcher, dialog) {
+        let form = dialog.querySelector("form");
+        if (!form) {
+            var dialogObserver = new MutationObserver(function(mutations) {
+                for (const mutation of mutations) {
+                    for (const node of mutation.addedNodes) {
+                        if (node.nodeName === 'FORM') {
+                            // Now that we have a form, it should be safe to call the patcher
+                            patcher(dialog);
+                            this.disconnect();
+                            return;
+                        }
+                    }
+                }
+            });
+
+            dialogObserver.observe(dialog, {
+                childList: true,
+                subtree: true
+            });
+            return;
+        }
+
+        patcher(dialog);
     }
 
     function patchLogWorkDialog(dialog) {
@@ -208,5 +230,4 @@
         let option = changeEstimateAdjustmentMode(dialog);
         option.focus();
     }
-
 })();
