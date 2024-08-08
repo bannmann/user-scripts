@@ -2,14 +2,14 @@
 // @name         Smooth Work Logging
 // @description  Makes creating/editing Jira work logs more efficient.
 // @namespace    https://github.com/bannmann/
-// @version      0.7
+// @version      0.8
 // @match        https://jira.eurodata.de/browse/*
 // @match        https://jira.eurodata.de/secure/RapidBoard.jspa?*
 // @match        https://jira.eurodata.de/issues/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=eurodata.de
 // @grant        none
-// @updateURL    https://github.com/bannmann/user-scripts/raw/main/jira/smooth-work-logging.user.js
-// @downloadURL  https://github.com/bannmann/user-scripts/raw/main/jira/smooth-work-logging.user.js
+// @updateURL    https://git.eurodata.de/eurodata-dortmund/browser-hacks/-/raw/main/jira/smooth-work-logging.user.js?ref_type=heads
+// @downloadURL  https://git.eurodata.de/eurodata-dortmund/browser-hacks/-/raw/main/jira/smooth-work-logging.user.js?ref_type=heads
 // ==/UserScript==
 
 (function() {
